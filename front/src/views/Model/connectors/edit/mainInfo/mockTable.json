@@ -1,0 +1,32 @@
+[
+	{
+		"id": 1,
+		"name": "WAY_BANK3",
+		"description": "Процессинг",
+		"dnsName": "",
+		"ip": "X.Y.Z.A",
+		"confirmAuth": true,
+		"userLogin": "TEST1",
+		"authType": "REST постоянный токен"
+	},
+	{
+		"id": 2,
+		"name": "WAY_BANK3",
+		"description": "Процессинг",
+		"dnsName": "",
+		"ip": "X.Y.Z.A",
+		"confirmAuth": true,
+		"userLogin": "TEST1",
+		"authType": "REST постоянный токен"
+	},
+	{
+		"id": 3,
+		"name": "АБИС",
+		"description": "Центральная",
+		"dnsName": "abis.bank.com",
+		"ip": "",
+		"confirmAuth": true,
+		"userLogin": "TEST1",
+		"authType": "REST постоянный токен"
+	}
+]

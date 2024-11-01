@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="create_transaction_data" author="Daniyar">
+        <createTable tableName="transaction_data">
+            <column name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="summary_data_connector_id" type="uuid"/>
+            <column name="summary_data_model_id" type="uuid"/>
+            <column name="user_id" type="bigint"/>
+            <column name="data" type="json"/>
+            <column name="number_of_repetitions" type="int"/>
+            <column name="is_cyclical" type="boolean"/>
+            <column name="state" type="varchar"/>
+            <column name="delay" type="int"/>
+            <column name="chrono_unit" type="varchar"/>
+            <column name="expires_at" type="timestamp"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

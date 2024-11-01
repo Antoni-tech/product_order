@@ -1,0 +1,84 @@
+[   
+    {
+        "id": "add",
+        "icon": "dxi dxi-plus",
+        "value": "Add",
+        "count": 0
+    },
+    {
+        "type": "separator"
+    },
+    {
+        "id": "language",
+        "value": "Language",
+        "items": [
+            {
+                "id": "eng",
+                "value": "English"
+            },
+            {
+                "id": "spa",
+                "value": "Spanish"
+            },
+            {
+                "id": "rus",
+                "value": "Russian"
+            },
+            {
+                "id": "de",
+                "value": "Deutsch"
+            }
+        ]
+    },
+    {
+        "id": "skin",
+        "value": "Skin",
+        "items": [
+            {
+                "id": "material",
+                "value": "Material"
+            },
+            {
+                "id": "skyblue",
+                "value": "Skyblue"
+            },
+            {
+                "id": "web",
+                "value": "Web"
+            },
+            {
+                "id": "terrace",
+                "value": "Terrace"
+            }
+        ]
+    },
+    {
+        "id": "btn",
+        "type": "button",
+        "value": "Сохранить",
+        "tooltip": "",
+        "countColor": null,
+        "view": "flat",
+        "size": "small",
+        "color": "primary",
+        "full": false,
+        "circle": false,
+        "loading": false
+    },
+    {
+        "type": "separator"
+    },
+    {
+        "id": "edit",
+        "value": "Edit"
+    },
+    {
+        "type": "spacer"
+    },
+    {
+        "id": "search",
+        "type": "input",
+        "placeholder": "Search",
+        "icon": "dxi dxi-magnify"
+    }
+]

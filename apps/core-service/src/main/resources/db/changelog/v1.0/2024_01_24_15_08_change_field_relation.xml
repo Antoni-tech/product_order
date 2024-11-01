@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="delete_field_relation_columns" author="Daniyar">
+
+        <dropColumn
+                tableName="field_relation"
+                columnName="field_name_by_user"
+        />
+
+    </changeSet>
+
+    <changeSet id="add_new_columns_field_relation" author="Daniyar">
+
+        <addColumn tableName="field_relation">
+            <column name="summary_rule_field_id" type="bigint"/>
+        </addColumn>
+
+        <addForeignKeyConstraint
+                baseTableName="field_relation"
+                baseColumnNames="summary_rule_field_id"
+                constraintName="fk_field_relation_summary_rule_field_id"
+                referencedTableName="summary_rule_field"
+                referencedColumnNames="id"
+                onDelete="NO ACTION"
+                onUpdate="NO ACTION"
+        />
+
+    </changeSet>
+
+</databaseChangeLog>

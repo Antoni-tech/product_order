@@ -1,0 +1,29 @@
+{
+	"rows": [
+		{
+			"type": "input",
+			"name": "email",
+			"label": "Email",
+			"labelPosition": "left",
+			"value": "tech@symtech.kz",
+			"labelWidth": 180
+		},
+		{
+			"type": "input",
+			"labelWidth": 180,
+			"value": "New Document",
+			"label": "Name",
+			"labelPosition": "left",
+			"placeholder": "John Doe",
+			"name": "name"
+		},
+		{
+			"type": "input",
+			"label": "Short name",
+			"labelWidth": 180,
+			"labelPosition": "left",
+			"value": "new doc",
+			"name": "description"
+		}
+	]
+}

@@ -1,0 +1,38 @@
+server:
+  port: 8100
+  servlet:
+    context-path: /${spring.application.name}
+connection:
+  allowed-origin: ${ALLOWED_URL:http://localhost:3000}
+jwt:
+  expiration-in-minutes: 5
+  #  Local osx path
+  private-key-path: classpath:keys/private_key.pem
+  public-key-path: classpath:keys/public_key.pem
+spring:
+  component-scan:
+    base-package: kz.symtech.antifraud
+  application:
+    name: auth-service
+  datasource:
+    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5432/anti_fraud}
+    password: ${DATASOURCE_PASSWORD:NbEMagx0LvJ0VMWuqqc8HXa89o0AcaTXjUCqtp7Qziat4LsN0Rki8dyXi}
+    username: ${DATASOURCE_USERNAME:anti_fraud}
+    driver-class-name: org.postgresql.Driver
+  cloud:
+    discovery:
+      client:
+        simple:
+          order: 0
+          instances:
+            admin-service:
+              - uri: ${ADMIN_SERVICE:http://localhost:8110}
+springdoc:
+  swagger-ui:
+    enabled: true
+    config-url: /${spring.application.name}/v3/api-docs/swagger-config
+    url: /${spring.application.name}/v3/api-docs
+logging:
+  level:
+    org.springframework: WARN
+app.version: '@project.version@'

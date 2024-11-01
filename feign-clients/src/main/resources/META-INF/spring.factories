@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  kz.symtech.antifraud.feignclients.config.AutoConfig

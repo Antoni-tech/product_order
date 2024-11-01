@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="addConnectorTypeToModelConnectorTables" author="RichMan">
+        <addColumn tableName="model_connector_input">
+            <column name="connector_type" type="varchar(64)"/>
+        </addColumn>
+
+        <addColumn tableName="model_connector_output">
+            <column name="connector_type" type="varchar(64)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="addCommonToSummaryDataVersionTable" author="RichMan">
+        <addColumn tableName="summary_data_version">
+            <column name="common" type="boolean"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="addConnectorDataTypeToSummaryDataVersionTable" author="RichMan">
+        <addColumn tableName="model_connector_input">
+            <column name="input_data_type" type="varchar(64)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="addExtendedToSummaryDataVersionTable" author="RichMan">
+        <addColumn tableName="summary_data_version">
+            <column name="extended" type="bigint"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="addQueueToSummaryFieldsTable" author="RichMan">
+        <addColumn tableName="summary_fields">
+            <column name="queue" type="smallint"/>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>

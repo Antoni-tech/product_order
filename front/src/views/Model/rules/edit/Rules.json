@@ -1,0 +1,125 @@
+{
+  "rows": [
+    {
+      "type": "text",
+      "name": "versionId",
+      "label": "Идентификатор",
+      "labelPosition": "left",
+      "labelWidth": 180
+    },
+    {
+      "padding": "10px",
+      "align": "center",
+      "cols": [
+        {
+          "name": "radiogroup",
+          "type": "radioGroup",
+          "label": "Разрешить использовать в 2-х и более моделях (при как минимум частичной идентичной входящей структуре данных)",
+          "labelPosition": "left",
+          "value": "agree",
+          "options": {
+            "cols": [
+              {
+                "type": "radioButton",
+                "text": "Yes",
+                "value": "agree"
+              },
+              {
+                "type": "radioButton",
+                "text": "No",
+                "value": "disagree"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "name": "ruleType",
+      "label": "Тип документа",
+      "labelPosition": "left",
+      "labelWidth": 180,
+      "options": [
+        {
+          "content": "качество",
+          "value": "QUALITY"
+        },
+        {
+          "content": "количество",
+          "value": "QUANTITY"
+        }
+      ]
+    },
+    {
+      "type": "input",
+      "labelWidth": 180,
+      "value": "New Document",
+      "label": "Наименование правила",
+      "labelPosition": "left",
+      "placeholder": "John Doe",
+      "name": "name"
+    },
+    {
+      "type": "textarea",
+      "label": "Краткое описание",
+      "labelWidth": 180,
+      "labelPosition": "left",
+      "value": "new doc",
+      "name": "description"
+    },
+    {
+      "padding": "10px",
+      "align": "left",
+      "cols": [
+        {
+          "type": "input",
+          "labelWidth": 240,
+          "value": "0",
+          "label": "Сохранять результаты расчета",
+          "labelPosition": "top",
+          "placeholder": "John Doe",
+          "name": "SaveResult"
+        },
+        {
+          "name": "saveResult",
+          "type": "radioGroup",
+          "value": "disagree",
+          "options": {
+            "cols": [
+              {
+                "type": "radioButton",
+                "text": "Yes",
+                "value": "agree"
+              },
+              {
+                "type": "radioButton",
+                "text": "No",
+                "value": "disagree"
+              }
+            ]
+          }
+        },
+        {
+          "name": "resultIncremental",
+          "type": "radioGroup",
+          "value": "replace",
+          "options": {
+            "rows": [
+              {
+                "type": "radioButton",
+                "text": "Инкрементально",
+                "value": "incr"
+              },
+              {
+                "type": "radioButton",
+                "text": "Заменить новыми данными",
+                "value": "replace"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

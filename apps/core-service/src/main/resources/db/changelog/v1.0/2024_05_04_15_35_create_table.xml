@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="create-table-product" author="Anton">
+        <createTable tableName="product">
+            <column name="id" type="BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="price" type="BIGINT"/>
+            <!-- Другие столбцы вашей таблицы -->
+        </createTable>
+    </changeSet>
+
+
+    <changeSet id="create-table-order" author="Anton">
+        <createTable tableName="orders">
+            <column name="id" type="BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="total" type="BIGINT"/>
+            <column name="tax" type="VARCHAR(255)"/>
+            <!-- Другие столбцы вашей таблицы -->
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create-product-order-table" author="Anton">
+        <createTable tableName="product_order">
+            <column name="id" type="BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="order_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="product_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="quantity" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="add-column-to-order" author="Anton">
+        <addColumn tableName="orders">
+            <column name="product_order_id" type="BIGINT"/>
+            <!-- Другие столбцы вашей таблицы -->
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

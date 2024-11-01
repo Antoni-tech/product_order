@@ -1,0 +1,16 @@
+{
+  "properties": {
+    "accCt": {
+      "type": "text",
+      "term_vector": "with_positions_offsets",
+      "analyzer": "index_ngram_analyzer",
+      "search_analyzer": "search_term_analyzer"
+    },
+    "transactionId": {
+      "type": "text",
+      "term_vector": "with_positions_offsets",
+      "analyzer": "index_ngram_analyzer",
+      "search_analyzer": "search_term_analyzer"
+    }
+  }
+}

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+<!--    <changeSet id="create_connector_conflict_table" author="Daniyar">-->
+<!--        <createTable tableName="connector_conflict">-->
+<!--            <column name="id" type="uuid">-->
+<!--                <constraints nullable="false" primaryKey="true"/>-->
+<!--            </column>-->
+<!--            <column name="created_at" type="TIMESTAMP">-->
+<!--                <constraints nullable="false"/>-->
+<!--            </column>-->
+<!--            <column name="updated_at" type="TIMESTAMP">-->
+<!--                <constraints nullable="false"/>-->
+<!--            </column>-->
+<!--            <column name="type" type="VARCHAR(255)"/>-->
+<!--            <column name="connector_id" type="UUID"/>-->
+<!--            <column name="amount" type="int"/>-->
+<!--        </createTable>-->
+<!--    </changeSet>-->
+<!--    <changeSet id="add_foreign_key_to_connector_conflict" author="Daniyar">-->
+<!--        <addForeignKeyConstraint-->
+<!--                baseTableName="connector_conflict"-->
+<!--                baseColumnNames="connector_id"-->
+<!--                constraintName="fk_connector_conflict_connector_id"-->
+<!--                referencedTableName="connector"-->
+<!--                referencedColumnNames="id"-->
+<!--                onDelete="NO ACTION"-->
+<!--                onUpdate="NO ACTION"-->
+<!--        />-->
+<!--    </changeSet>-->
+</databaseChangeLog>

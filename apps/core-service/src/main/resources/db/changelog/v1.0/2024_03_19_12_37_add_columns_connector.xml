@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="add_columns_connector" author="Daniyar">
+
+        <addColumn tableName="model_connector_input">
+            <column name="url_for_info" type="varchar"/>
+            <column name="cron" type="varchar"/>
+        </addColumn>
+
+        <addColumn tableName="model_connector_output">
+            <column name="url_for_info" type="varchar"/>
+            <column name="cron" type="varchar"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="add_connector_protocol_connector_sub_type_columns_to_connector" author="RichMan">
+        <addColumn tableName="model_connector_input">
+            <column name="connector_protocol" type="varchar"/>
+            <column name="connector_sub_type" type="varchar"/>
+        </addColumn>
+
+        <addColumn tableName="model_connector_output">
+            <column name="connector_protocol" type="varchar"/>
+            <column name="connector_sub_type" type="varchar"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="add_value_to_connector_sub_type" author="RichMan">
+        <sql>UPDATE model_connector_input SET connector_sub_type = 'REQUEST_RESPONSE' WHERE connector_sub_type IS NULL</sql>
+        <sql>UPDATE model_connector_output SET connector_sub_type = 'REQUEST_RESPONSE' WHERE connector_sub_type IS NULL</sql>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,32 @@
+{
+  "dynamic": true,
+  "dynamic_templates": [
+    {
+      "keyword_connector": {
+        "match": "connectorInputId",
+        "mapping": {
+          "type": "keyword"
+        }
+      }
+    },
+    {
+      "keyword_rule": {
+        "match": "ruleId",
+        "mapping": {
+          "type": "keyword"
+        }
+      }
+    },
+    {
+      "text_fields": {
+        "match_mapping_type": "string",
+        "mapping": {
+          "type": "text",
+          "term_vector": "with_positions_offsets",
+          "analyzer": "index_ngram_analyzer",
+          "search_analyzer": "search_term_analyzer"
+        }
+      }
+    }
+  ]
+}

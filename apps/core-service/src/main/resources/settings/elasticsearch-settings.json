@@ -1,0 +1,39 @@
+{
+  "index": {
+    "number_of_shards": 1,
+    "number_of_replicas": 1,
+    "max_ngram_diff": 50,
+    "analysis": {
+      "char_filter": {
+        "eCharFilter": {
+          "type": "mapping",
+          "mappings": [
+            "Ё=>Е",
+            "ё=>е"
+          ]
+        }
+      },
+      "tokenizer": {
+        "ngram_tokenizer": {
+          "type": "ngram",
+          "min_gram": "3",
+          "max_gram": "25"
+        }
+      },
+      "analyzer": {
+        "index_ngram_analyzer": {
+          "type": "custom",
+          "tokenizer": "ngram_tokenizer",
+          "filter": "lowercase",
+          "char_filter": "eCharFilter"
+        },
+        "search_term_analyzer": {
+          "type": "custom",
+          "tokenizer": "keyword",
+          "filter": "lowercase",
+          "char_filter": "eCharFilter"
+        }
+      }
+    }
+  }
+}

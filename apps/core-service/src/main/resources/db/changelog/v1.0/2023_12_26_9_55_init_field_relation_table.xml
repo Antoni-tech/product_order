@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="create_field_relation_table" author="Daniyar">
+        <createTable tableName="field_relation">
+            <column name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="field_name_by_user" type="varchar"/>
+            <column name="model_struct_id" type="bigint"/>
+            <column name="model_connector_input_id" type="bigint"/>
+            <column name="summary_connector_field_id" type="bigint"/>
+            <column name="model_rule_id" type="bigint"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="add_foreign_key_field_relation" author="Daniyar">
+
+        <addForeignKeyConstraint
+                baseTableName="field_relation"
+                baseColumnNames="model_connector_input_id"
+                constraintName="fk_field_relation_model_connector_input_id"
+                referencedTableName="model_connector_input"
+                referencedColumnNames="id"
+                onDelete="NO ACTION"
+                onUpdate="NO ACTION"
+        />
+
+        <addForeignKeyConstraint
+                baseTableName="field_relation"
+                baseColumnNames="summary_connector_field_id"
+                constraintName="fk_field_relation_summary_connector_field_id"
+                referencedTableName="summary_connector_field"
+                referencedColumnNames="id"
+                onDelete="NO ACTION"
+                onUpdate="NO ACTION"
+        />
+
+        <addForeignKeyConstraint
+                baseTableName="field_relation"
+                baseColumnNames="model_struct_id"
+                constraintName="fk_field_relation_model_struct_id"
+                referencedTableName="model_struct"
+                referencedColumnNames="id"
+                onDelete="NO ACTION"
+                onUpdate="NO ACTION"
+        />
+
+        <addForeignKeyConstraint
+                baseTableName="field_relation"
+                baseColumnNames="model_rule_id"
+                constraintName="fk_field_relation_model_rule_id"
+                referencedTableName="model_rule"
+                referencedColumnNames="id"
+                onDelete="NO ACTION"
+                onUpdate="NO ACTION"
+        />
+
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,32 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+    <changeSet author="LizogubNS" id="insert_data_in_table_user">
+        <comment> insert data in table user </comment>
+        <sqlFile path="v1.0/sql/users.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    <changeSet author="LizogubNS" id="insert_data_in_table_roles">
+        <comment> insert data in table roles </comment>
+        <sqlFile path="v1.0/sql/roles.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    <changeSet author="LizogubNS" id="insert_data_in_table_privileges">
+        <comment> insert data in table privileges </comment>
+        <sqlFile path="v1.0/sql/privileges.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    <changeSet author="LizogubNS" id="insert_data_in_table_user_role">
+        <comment> insert data in table user_role </comment>
+        <sqlFile path="v1.0/sql/user_role.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    <changeSet author="LizogubNS" id="copy_data_to_role_user">
+        <sql>
+            INSERT INTO user_role (id,role_id, user_id)
+            SELECT nextval('app_seq'),3, id FROM users;
+        </sql>
+    </changeSet>
+    <changeSet author="LizogubNS" id="insert_data_in_table_role_privilege">
+        <comment> insert data in table role_privilege </comment>
+        <sqlFile path="v1.0/sql/role_privilege.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="drop_column_json_data_model_rule" author="Daniyar">
+        <dropColumn tableName="model_rule" columnName="json_data"/>
+    </changeSet>
+
+    <changeSet id="create_rule_expression_table" author="Daniyar">
+        <createTable tableName="rule_expression">
+            <column name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="summary_data_version_rule_id" type="bigint"/>
+            <column name="expression" type="varchar"/>
+            <column name="type" type="varchar"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="add_fk_rule_expression" author="Daniyar">
+        <addForeignKeyConstraint
+                baseTableName="rule_expression"
+                baseColumnNames="summary_data_version_rule_id"
+                constraintName="fk_summary_data_version_rule_id_rule_expression"
+                referencedTableName="summary_data_version"
+                referencedColumnNames="id"
+                onDelete="NO ACTION"
+                onUpdate="NO ACTION"
+        />
+    </changeSet>
+
+    <changeSet id="create_quality_operation_table" author="Daniyar">
+        <createTable tableName="quality_operation">
+            <column name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="rule_expression_id" type="bigint"/>
+            <column name="summary_data_version_connector_output_id" type="bigint"/>
+            <column name="text_value" type="varchar"/>
+            <column name="to_incidents" type="boolean"/>
+            <column name="number" type="int"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="add_fk_quality_operation" author="Daniyar">
+        <addForeignKeyConstraint
+                baseTableName="quality_operation"
+                baseColumnNames="rule_expression_id"
+                constraintName="fk_rule_expression_id_quality_operation"
+                referencedTableName="rule_expression"
+                referencedColumnNames="id"
+                onDelete="NO ACTION"
+                onUpdate="NO ACTION"
+        />
+
+        <addForeignKeyConstraint
+                baseTableName="quality_operation"
+                baseColumnNames="summary_data_version_connector_output_id"
+                constraintName="fk_summary_data_version_connector_output_id_quality_operation"
+                referencedTableName="summary_data_version"
+                referencedColumnNames="id"
+                onDelete="NO ACTION"
+                onUpdate="NO ACTION"
+        />
+    </changeSet>
+
+    <changeSet id="add_cascade_delete_to_rule_expression" author="RichMan">
+        <dropForeignKeyConstraint
+                baseTableName="rule_expression"
+                constraintName="fk_summary_data_version_rule_id_rule_expression"
+        />
+
+        <addForeignKeyConstraint
+                baseTableName="rule_expression"
+                baseColumnNames="summary_data_version_rule_id"
+                constraintName="fk_summary_data_version_rule_id_rule_expression"
+                referencedTableName="summary_data_version"
+                referencedColumnNames="id"
+                onDelete="CASCADE"
+        />
+    </changeSet>
+
+    <changeSet id="add_cascade_delete_to_quality_operation" author="RichMan">
+        <dropForeignKeyConstraint
+                baseTableName="quality_operation"
+                constraintName="fk_rule_expression_id_quality_operation"
+        />
+
+        <addForeignKeyConstraint
+                baseTableName="quality_operation"
+                baseColumnNames="rule_expression_id"
+                constraintName="fk_rule_expression_id_quality_operation"
+                referencedTableName="rule_expression"
+                referencedColumnNames="id"
+                onDelete="CASCADE"
+        />
+    </changeSet>
+</databaseChangeLog>

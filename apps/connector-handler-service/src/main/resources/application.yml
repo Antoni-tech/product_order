@@ -1,0 +1,64 @@
+server:
+  port: 8097
+  servlet:
+    context-path: /${spring.application.name}
+
+spring:
+  application:
+    name: connector-handler-service
+  datasource:
+    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5432/anti_fraud}
+    password: ${DATASOURCE_PASSWORD:NbEMagx0LvJ0VMWuqqc8HXa89o0AcaTXjUCqtp7Qziat4LsN0Rki8dyXi}
+    username: ${DATASOURCE_USERNAME:anti_fraud}
+    driver-class-name: org.postgresql.Driver
+  data:
+    redis:
+      timeout: 600ms
+      host: ${REDIS_HOST_CORE:localhost}
+      port: ${REDIS_PORT:6379}
+  liquibase:
+    change-log: db/changelog/liquibase-changelog.xml
+    database-change-log-table: changelog_${spring.application.name}
+    database-change-log-lock-table: changelog_lock_${spring.application.name}
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+            database-platform: org.hibernate.dialect.PostgreSQLDialect
+    open-in-view: true
+
+  cloud:
+    discovery:
+      client:
+        simple:
+          order: 0
+          instances:
+            core-service:
+              - uri: ${CORE_SERVICE:http://localhost:8095}
+            test-service:
+              - uri: ${TEST_SERVICE:http://localhost:8096}
+
+springdoc:
+  swagger-ui:
+    enabled: true
+    config-url: /${spring.application.name}/v3/api-docs/swagger-config
+    url: /${spring.application.name}/v3/api-docs
+
+logging:
+  level:
+    org.springframework: WARN
+
+redis-prefixes:
+  transaction-input: transaction:input
+  counter-requests-core: counter:requests:core
+  amount-of-transactions: amount:transaction
+  amount-of-transaction-errors: amount:transaction:error
+
+app.version: '@project.version@'
+connection:
+  allowed-origin: ${ALLOWED_URL:http://localhost:3000}

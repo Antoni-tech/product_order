@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="create_summary_rule_field_table" author="richman0ff">
+        <createTable tableName="summary_rule_field">
+            <column name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(255)"/>
+            <column name="model_rule_id" type="bigint"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="add_foreign_key_summary_rule_field" author="richman0ff">
+        <addForeignKeyConstraint
+                baseTableName="summary_rule_field"
+                baseColumnNames="model_rule_id"
+                constraintName="fk_summary_rule_field_summary_data_version_id"
+                referencedTableName="summary_data_version"
+                referencedColumnNames="id"
+                onDelete="NO ACTION"
+                onUpdate="NO ACTION"
+        />
+    </changeSet>
+</databaseChangeLog>

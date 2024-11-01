@@ -1,0 +1,12 @@
+[
+	{
+		"id": 1,
+		"name": "WAY_BANK3",
+		"description": "Процессинг",
+		"dnsName": "",
+		"ip": "X.Y.Z.A",
+		"confirmAuth": true,
+		"userLogin": "TEST1",
+		"authType": "REST постоянный токен"
+	}
+]

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="add_new_columns_transaction_data" author="Daniyar">
+
+        <addColumn tableName="transaction_data">
+            <column name="chrono_unit_to_replace" type="varchar"/>
+            <column name="delay_to_replace" type="int"/>
+            <column name="data_to_replace" type="json"/>
+        </addColumn>
+
+    </changeSet>
+
+</databaseChangeLog>

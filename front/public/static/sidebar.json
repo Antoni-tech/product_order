@@ -1,0 +1,96 @@
+[
+	{
+		"id": "toggle",
+		"icon": "mdi mdi-backburger"
+	},
+	{
+		"id": "sidehomepage",
+		"value": "Домашняя страница",
+		"icon": "mdi mdi-home"
+	},
+	{
+		"type": "separator"
+	},
+	{
+		"id": "operations",
+		"value": "Операции",
+		"icon": "mdi mdi-format-line-style"
+	},
+	{
+		"id": "incidents",
+		"value": "Инциденты и обработка",
+		"icon": "mdi mdi-wrap",
+		"count": 30,
+		"countColor": "primary"
+	},
+	{
+		"id": "plans",
+		"value": "Планы и отчетность",
+		"icon": "mdi mdi-clipboard-text",
+		"items": [
+			{
+				"id": "addPage",
+				"value": "New Page",
+				"icon": "mdi mdi-plus"
+			},
+			{
+				"id": "allPage",
+				"value": "Pages",
+				"icon": "mdi mdi-view-list"
+			},
+			{
+				"id": "categoryPages",
+				"value": "Category",
+				"icon": "mdi mdi-tag"
+			}
+		]
+	},
+	{
+		"type": "separator"
+	},
+	{
+		"id": "models",
+		"value": "Управление моделями",
+		"icon": "mdi mdi-source-branch"
+	},
+	{
+		"type": "separator"
+	},
+	{
+		"id": "media",
+		"value": "Учетные записи и внешние системы",
+		"count": 0,
+		"icon": "mdi mdi-account-settings"
+	},
+	{
+		"type": "spacer"
+	},
+	{
+		"id": "messages",
+		"value": "Чат",
+		"icon": "mdi mdi-wechat"
+	},
+	{
+		"id": "notification",
+		"value": "Уведомления",
+		"icon": "mdi mdi-bell",
+		"count": 25
+	},
+	{
+		"id": "configuration",
+		"value": "Настройки",
+		"icon": "mdi mdi-settings",
+		"items": [
+			{
+				"id": "myAccount",
+				"value": "My Account",
+				"icon": "mdi mdi-account-settings"
+			},
+			{
+				"id": "general",
+				"value": "General Configuration",
+				"icon": "mdi mdi-tune"
+			}
+		]
+	}
+]

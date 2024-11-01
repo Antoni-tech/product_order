@@ -1,0 +1,89 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+    <changeSet author="LizogubNS" id="add_sequence_app_seq">
+        <sql>
+            CREATE SEQUENCE app_seq
+                START WITH 1
+                INCREMENT BY 50
+                MINVALUE 1
+                CACHE 1;
+        </sql>
+    </changeSet>
+
+    <changeSet author="LizogubNS" id="setval_sequence_app_seq">
+        <sql>
+            SELECT setval('app_seq', 1000, false);
+        </sql>
+    </changeSet>
+
+    <changeSet author="LizogubNS" id="create_table_roles">
+        <createTable tableName="roles">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="roles_pkey"/>
+            </column>
+            <column name="created_date" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="update_date" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="default_role" type="boolean" defaultValue="false"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="LizogubNS" id="create_table_user_role">
+        <createTable tableName="user_role">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="user_role_pkey"/>
+            </column>
+            <column name="role_id" type="BIGINT"/>
+            <column name="user_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="LizogubNS" id="create_table_privileges">
+        <createTable tableName="privileges">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="privileges_pkey"/>
+            </column>
+            <column name="created_date" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="update_date" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="tag" type="VARCHAR(255)"/>
+            <column name="privilege_group" type="VARCHAR(64)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="LizogubNS" id="create_table_role_privilege">
+        <createTable tableName="role_privilege">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="role_privilege_pkey"/>
+            </column>
+            <column name="privileges_id" type="BIGINT"/>
+            <column name="role_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="LizogubNS" id="create_table_users">
+        <createTable tableName="users">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="user_pkey"/>
+            </column>
+            <column name="login" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="phone" type="VARCHAR(20)"/>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(128)"/>
+            <column name="salt" type="VARCHAR(128)"/>
+            <column defaultValueNumeric="0" name="is_registered" type="SMALLINT"/>
+            <column name="last_login" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="LizogubNS" id="add_foreign_key_constraint_table_role_privilege">
+        <addForeignKeyConstraint baseColumnNames="privileges_id" baseTableName="role_privilege" constraintName="fkeyt4rrh0l3i0eh2vx08qm81uq" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="privileges" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="role_privilege" constraintName="fkoyen4wwrw6fh56dy3ri05may1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="roles" validate="true"/>
+    </changeSet>
+    <changeSet author="LizogubNS" id="add_foreign_key_constraint_table_user_role">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_role" constraintName="fkj345gk1bovqvfame88rcx7yyx" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="users" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="user_role" constraintName="fkt7e7djp752sqn6w22i6ocqy6q" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="roles" validate="true"/>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="create_incidents_table" author="Daniyar">
+        <createTable tableName="incidents">
+            <column name="id" type="uuid">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="number" type="int"/>
+            <column name="text_value" type="varchar"/>
+            <column name="connector_input_id" type="bigint"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="add_foreign_key_incidents" author="Daniyar">
+        <addForeignKeyConstraint
+                baseTableName="incidents"
+                baseColumnNames="connector_input_id"
+                constraintName="fk_connector_input_incident"
+                referencedTableName="model_connector_input"
+                referencedColumnNames="id"
+                onDelete="NO ACTION"
+                onUpdate="NO ACTION"
+        />
+    </changeSet>
+
+    <changeSet id="create_validated_input_connectors" author="Daniyar">
+        <createTable tableName="validated_input_connectors">
+            <column name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="fields" type="json"/>
+            <column name="model_struct_id" type="bigint"/>
+            <column name="model_connector_input_id" type="bigint"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="add_foreign_key_validated_input_connectors" author="Daniyar">
+
+        <addForeignKeyConstraint
+                baseTableName="validated_input_connectors"
+                baseColumnNames="model_connector_input_id"
+                constraintName="fk_connector_validated_input_connectors"
+                referencedTableName="model_connector_input"
+                referencedColumnNames="id"
+                onDelete="NO ACTION"
+                onUpdate="NO ACTION"
+        />
+
+        <addForeignKeyConstraint
+                baseTableName="validated_input_connectors"
+                baseColumnNames="model_struct_id"
+                constraintName="fk_connector_validated_input_connectors_model_struct"
+                referencedTableName="model_struct"
+                referencedColumnNames="id"
+                onDelete="NO ACTION"
+                onUpdate="NO ACTION"
+        />
+
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <springProperty name="APP_NAME" source="spring.application.name"/>
+    <springProperty name="LOG_URL" source="LOGSTASH_URL" defaultValue="logstash"/>
+    <springProperty name="LOG_PORT" source="LOGSTASH_PORT" defaultValue="5000"/>
+    <!--    <springProperty scope="context" name="enableLogstash" source="your.property.key" defaultValue="false" />-->
+    <appender name="logstash" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <destination>${LOG_URL}:${LOG_PORT}</destination>
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <mdc/>
+                <context/>
+                <logLevel/>
+                <loggerName/>
+                <pattern>
+                    <pattern>{ "container": "${APP_NAME}"}</pattern>
+                </pattern>
+                <threadName/>
+                <message/>
+                <logstashMarkers/>
+                <stackTrace/>
+            </providers>
+        </encoder>
+    </appender>
+
+    <springProfile name="prod">
+        <root level="info">
+            <appender-ref ref="logstash"/>
+        </root>
+    </springProfile>
+</configuration>

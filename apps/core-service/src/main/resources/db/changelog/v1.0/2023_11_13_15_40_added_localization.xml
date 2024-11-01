@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+
+    <changeSet id="create_translate_table" author="richman0ff">
+        <createTable tableName="translate">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="code" type="VARCHAR(64)"/>
+            <column name="ru" type="VARCHAR(255)"/>
+            <column name="en" type="VARCHAR(255)"/>
+            <column name="kz" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="add_connector_purpose_localization" author="richman0ff">
+        <sql>
+            INSERT INTO translate (id, code, ru, en, kz)
+            VALUES (
+                       '1',
+                       'IDODAC',
+                       'Выявление отклонений и/или соответствий',
+                       'Identification of deviations and/or correspondences',
+                       'Ауытқуларды және/немесе сәйкестіктерді анықтау'
+                   );
+            INSERT INTO translate (id, code, ru, en, kz)
+            VALUES (
+                       '2',
+                       'GetRD',
+                       'Получение справочных данных',
+                       'Getting reference data',
+                       'Анықтамалық деректерді алу'
+                   );
+            INSERT INTO translate (id, code, ru, en, kz)
+            VALUES (
+                       '3',
+                       'DeciMake',
+                       'Принятие решения',
+                       'Decision making',
+                       'Шешім қабылдау'
+                   );
+            INSERT INTO translate (id, code, ru, en, kz)
+            VALUES (
+                       '4',
+                       'WTRID',
+                       'Ожидающий для приема входящих данных',
+                       'Waiting to receive incoming data',
+                       'Кіріс деректерін қабылдауды күтетін'
+                   );
+            INSERT INTO translate (id, code, ru, en, kz)
+            VALUES (
+                       '5',
+                       'ORforD',
+                       'Исходящий запрос для получения данных',
+                       'Outgoing request for data',
+                       'Деректерді алу үшін шығыс сұрауы'
+                   );
+            INSERT INTO translate (id, code, ru, en, kz)
+            VALUES (
+                       '6',
+                       'UADDF',
+                       'Загрузка файла с данными с разделителями',
+                       'Uploading a delimited data file',
+                       'Файлды бөлгіші бар деректермен жүктеу'
+                   );
+        </sql>
+    </changeSet>
+</databaseChangeLog>

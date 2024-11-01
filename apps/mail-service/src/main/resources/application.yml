@@ -1,0 +1,47 @@
+server:
+  port: 8090
+  servlet:
+    context-path: /${spring.application.name}
+spring:
+  jackson:
+    generator:
+      write_big_decimal_as_plain: true
+  cloud:
+    discovery:
+      client:
+        simple:
+          order: 0
+          instances:
+            admin-service:
+              - uri: ${ADMIN_SERVICE:http://localhost:8110}
+  application:
+    name: mail-service
+  mail:
+    protocol: smtps
+    port: 465
+    host: ${MAIL_HOST:mail.symtech.kz}
+    username: ${MAIL_USERNAME:noreply@symtech.kz}
+    password: Mailwolf2*
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+springdoc:
+  swagger-ui:
+    enabled: true
+    config-url: /${spring.application.name}/v3/api-docs/swagger-config
+    url: /${spring.application.name}/v3/api-docs
+logging:
+  level:
+    org.springframework: WARN
+app.version: '@project.version@'
+company:
+  name: ${COMPANY_NAME:Sym Technology}
+  email: ${COMPANY_EMAIL:info@symtech.kz}
+  web-site: ${COMPANY_WEB_SITE:www.symtech.kz}
+  phone: ${COMPANY_PHONE:+7 (700) 300 9112}
+  address: ${COMPANY_ADDRESS:"бул. Бухар-Жирау 33, Алматы"}
+connection:
+  allowed-origin: ${ALLOWED_URL:http://localhost:3000}

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="create_incident_table" author="Daniyar">
+        <createTable tableName="incidents_test">
+            <column name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="summary_data_version_model_id" type="bigint"/>
+            <column name="user_id" type="bigint"/>
+            <column name="summary_data_version_connector_id" type="bigint"/>
+            <column name="number" type="int"/>
+            <column name="text_value" type="varchar"/>
+            <column name="json_data" type="json"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

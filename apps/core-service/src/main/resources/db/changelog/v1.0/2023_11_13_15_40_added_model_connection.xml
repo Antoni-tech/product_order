@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet id="createModelStructComponentsTable" author="richman0ff">
+        <createTable tableName="model_struct_components">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="model_struct_id" type="bigint">
+                <constraints foreignKeyName="fk_model_struct_components_model_struct"
+                             references="model_struct(id)"/>
+            </column>
+            <column name="model_component_id" type="bigint">
+                <constraints foreignKeyName="fk_summary_data_version_components_summary_data_version"
+                             references="summary_data_version(id)"/>
+            </column>
+            <column name="launch_second_stage" type="boolean"/>
+            <column name="queue_number" type="INT"/>
+            <column name="days_remaining" type="integer"/>
+            <column name="result_incremental" type="BOOLEAN"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

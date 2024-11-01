@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="addCascadeDeleteToSummaryField" author="RichMan">
+        <dropForeignKeyConstraint
+                baseTableName="summary_fields"
+                constraintName="fk_summary_field_version_id"
+        />
+        <dropForeignKeyConstraint
+                baseTableName="summary_fields"
+                constraintName="fk_summary_field_parent_id"
+        />
+
+        <addForeignKeyConstraint
+                baseTableName="summary_fields"
+                baseColumnNames="summary_data_version_id"
+                constraintName="fk_summary_field_version_id"
+                referencedTableName="summary_data_version"
+                referencedColumnNames="id"
+                onDelete="CASCADE"
+        />
+        <addForeignKeyConstraint
+                baseTableName="summary_fields"
+                baseColumnNames="parent_id"
+                constraintName="fk_summary_field_parent_id"
+                referencedTableName="summary_fields"
+                referencedColumnNames="id"
+                onDelete="CASCADE"
+        />
+    </changeSet>
+
+    <changeSet id="addCascadeDeleteToFieldRelation" author="RichMan">
+        <dropForeignKeyConstraint
+                baseTableName="field_relation"
+                constraintName="fk_field_relation_var_summary_field_id"
+        />
+
+        <dropForeignKeyConstraint
+                baseTableName="field_relation"
+                constraintName="fk_field_relation_src_summary_field_id"
+        />
+
+        <addForeignKeyConstraint
+                baseTableName="field_relation"
+                baseColumnNames="var_summary_field_id"
+                constraintName="fk_field_relation_var_summary_field_id"
+                referencedTableName="summary_fields"
+                referencedColumnNames="id"
+                onDelete="CASCADE"
+        />
+        <addForeignKeyConstraint
+                baseTableName="field_relation"
+                baseColumnNames="src_summary_field_id"
+                constraintName="fk_field_relation_src_summary_field_id"
+                referencedTableName="summary_fields"
+                referencedColumnNames="id"
+                onDelete="CASCADE"
+        />
+    </changeSet>
+
+    <changeSet id="add_fk_summary_field_sub_data" author="RichMan">
+        <dropForeignKeyConstraint
+                baseTableName="summary_field_sub_data"
+                constraintName="fk_summary_field_sub_data_summary_field_id"
+        />
+
+        <addForeignKeyConstraint
+                baseTableName="summary_field_sub_data"
+                baseColumnNames="summary_field_id"
+                constraintName="fk_summary_field_sub_data_summary_field_id"
+                referencedTableName="summary_fields"
+                referencedColumnNames="id"
+                onDelete="CASCADE"
+        />
+    </changeSet>
+
+    <changeSet id="addCascadeDeleteToModelConnectorInput" author="RichMan">
+        <dropForeignKeyConstraint
+                baseTableName="model_connector_input"
+                constraintName="fk_model_connector_input_summary_data_version"
+        />
+        <addForeignKeyConstraint
+                baseTableName="model_connector_input"
+                baseColumnNames="summary_data_version_id"
+                constraintName="fk_model_connector_input_summary_data_version_cascade_on_delete"
+                referencedTableName="summary_data_version"
+                referencedColumnNames="id"
+                onDelete="CASCADE"
+        />
+    </changeSet>
+
+    <changeSet id="addCascadeDeleteToModelConnectorOutput" author="RichMan">
+        <dropForeignKeyConstraint
+                baseTableName="model_connector_output"
+                constraintName="fk_model_connector_output_summary_data_version"
+        />
+        <addForeignKeyConstraint
+                baseTableName="model_connector_output"
+                baseColumnNames="summary_data_version_id"
+                constraintName="fk_model_connector_output_summary_data_version_cascade_on_delete"
+                referencedTableName="summary_data_version"
+                referencedColumnNames="id"
+                onDelete="CASCADE"
+        />
+    </changeSet>
+
+    <changeSet id="addCascadeDeleteToModelRule" author="RichMan">
+        <dropForeignKeyConstraint
+                baseTableName="model_rule"
+                constraintName="fk_model_rule_summary_data_version"
+        />
+        <addForeignKeyConstraint
+                baseTableName="model_rule"
+                baseColumnNames="summary_data_version_id"
+                constraintName="fk_model_rule_summary_data_version_cascade_on_delete"
+                referencedTableName="summary_data_version"
+                referencedColumnNames="id"
+                onDelete="CASCADE"
+        />
+    </changeSet>
+
+    <changeSet id="addCascadeDeleteToModelStruct" author="RichMan">
+        <dropForeignKeyConstraint
+                baseTableName="model_struct"
+                constraintName="fk_model_struct_summary_data_version"
+        />
+        <addForeignKeyConstraint
+                baseTableName="model_struct"
+                baseColumnNames="summary_data_version_id"
+                constraintName="fk_model_struct_summary_data_version_cascade_on_delete"
+                referencedTableName="summary_data_version"
+                referencedColumnNames="id"
+                onDelete="CASCADE"
+        />
+    </changeSet>
+
+    <changeSet id="addCascadeDeleteToModelStructComponents" author="RichMan">
+        <dropForeignKeyConstraint
+                baseTableName="model_struct_components"
+                constraintName="fk_model_struct_components_model_struct"
+        />
+        <dropForeignKeyConstraint
+                baseTableName="model_struct_components"
+                constraintName="fk_summary_data_version_components_summary_data_version"
+        />
+
+        <addForeignKeyConstraint
+                baseTableName="model_struct_components"
+                baseColumnNames="model_struct_id"
+                constraintName="fk_model_struct_components_model_struct"
+                referencedTableName="model_struct"
+                referencedColumnNames="id"
+                onDelete="CASCADE"
+        />
+        <addForeignKeyConstraint
+                baseTableName="model_struct_components"
+                baseColumnNames="model_component_id"
+                constraintName="fk_summary_data_version_components_summary_data_version"
+                referencedTableName="summary_data_version"
+                referencedColumnNames="id"
+                onDelete="CASCADE"
+        />
+    </changeSet>
+
+    <changeSet id="addCascadeDeleteToTransactionCounter" author="RichMan">
+        <dropForeignKeyConstraint
+                baseTableName="transaction_counter"
+                constraintName="fk_field_transaction_counter_summary_data_version_id"
+        />
+        <dropForeignKeyConstraint
+                baseTableName="transaction_counter"
+                constraintName="fk_field_transaction_counter_model_id"
+        />
+
+        <addForeignKeyConstraint
+                baseTableName="transaction_counter"
+                baseColumnNames="summary_data_version_id"
+                constraintName="fk_field_transaction_counter_summary_data_version_id"
+                referencedTableName="summary_data_version"
+                referencedColumnNames="id"
+                onDelete="CASCADE"
+        />
+        <addForeignKeyConstraint
+                baseTableName="transaction_counter"
+                baseColumnNames="model_id"
+                constraintName="fk_field_transaction_counter_model_id"
+                referencedTableName="model_struct"
+                referencedColumnNames="id"
+                onDelete="CASCADE"
+        />
+    </changeSet>
+
+    <changeSet id="addCascadeDeleteToFieldRelationModelId" author="RichMan">
+        <dropForeignKeyConstraint
+                baseTableName="field_relation"
+                constraintName="fk_field_relation_model_struct_id"
+        />
+
+        <addForeignKeyConstraint
+                baseTableName="field_relation"
+                baseColumnNames="model_struct_id"
+                constraintName="fk_field_relation_model_struct_id"
+                referencedTableName="model_struct"
+                referencedColumnNames="id"
+                onDelete="CASCADE"
+        />
+    </changeSet>
+</databaseChangeLog>

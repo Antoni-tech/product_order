@@ -1,0 +1,44 @@
+[
+  {
+    "value": "Помощь",
+    "items": [
+      {
+        "id": "about",
+        "value": "About",
+        "icon": "mdi mdi-information-variant"
+      },
+      {
+        "id": "help",
+        "value": "Помощь",
+        "icon": "mdi mdi-help"
+      },
+      {
+        "id": "bug",
+        "value": "Bug Reporting",
+        "icon": "mdi mdi-bug"
+      }
+    ]
+  },
+  {
+    "type": "spacer"
+  },
+  {
+    "id": "languages",
+    "value": "",
+    "icon": "mdi mdi-web",
+    "items": [
+      {
+        "id": "KazakhL",
+        "value": "KZ"
+      },
+      {
+        "id": "RussL",
+        "value": "RU"
+      },
+      {
+        "id": "EngL",
+        "value": "ENG"
+      }
+    ]
+  }
+]

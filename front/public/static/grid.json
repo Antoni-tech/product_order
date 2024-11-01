@@ -1,0 +1,23 @@
+[
+	{
+		"name": "AccD",
+		"type": "строка",
+		"maxSize": "50",
+		"allowEmpty": true,
+		"banSpecChar": false
+	},
+	{
+		"name": "India",
+		"type": "целое",
+		"maxSize": "12",
+		"allowEmpty": "true",
+		"banSpecChar": "true"
+	},
+	{
+		"name": "U.S.",
+		"type": "не целое",
+		"maxSize": "15",
+		"allowEmpty": "true",
+		"banSpecChar": "true"
+	}
+]

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="createSummaryDataTable" author="LizogubNS">
+        <createTable tableName="summary_data">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="version" type="smallint"/>
+            <column name="user_create_id" type="bigint"/>
+            <column name="email" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="createSummaryDataVersionTable" author="LizogubNS">
+        <createTable tableName="summary_data_version">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="summary_data_id" type="uuid">
+                <constraints
+                        nullable="false"
+                        foreignKeyName="fk_summary_data_version_summary_data_id"
+                        references="summary_data(id)"
+                />
+            </column>
+            <column name="version" type="smallint"/>
+            <column name="is_template" type="boolean"/>
+            <column name="user_update_id" type="bigint"/>
+            <column name="validate_fields" type="BOOLEAN"/>
+            <column name="is_active" type="boolean"/>
+            <column name="create_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="state" type="varchar(255)"/>
+            <column name="name" type="text"/>
+            <column name="description" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="createSummaryConnectorFieldTable" author="LizogubNS">
+        <createTable tableName="summary_connector_field">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="summary_data_version_id" type="bigint">
+                <constraints
+                        nullable="false"
+                        foreignKeyName="fk_summary_connector_fields_summary_data_version"
+                        references="summary_data_version(id)"
+                />
+            </column>
+            <column name="name" type="varchar(64)"/>
+            <column name="field_type" type="varchar(64)"/>
+            <column name="parent_id" type="integer"/>
+            <column name="max_size" type="integer"/>
+            <column name="allow_empty" type="boolean"/>
+            <column name="prohibit_spec_characters" type="boolean"/>
+            <column name="allow_array" type="boolean"/>
+            <column name="max_array" type="bigint"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="createModelConnectorInputTable" author="LizogubNS">
+        <createTable tableName="model_connector_input">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="summary_data_version_id" type="bigint">
+                <constraints
+                        nullable="false"
+                        foreignKeyName="fk_model_connector_input_summary_data_version"
+                        references="summary_data_version(id)"
+                />
+            </column>
+            <column name="connector_purpose" type="varchar(255)"/>
+            <column name="connector_subspecies" type="varchar(255)"/>
+            <column name="technology" type="varchar(64)"/>
+            <column name="data_format" type="varchar(64)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="createModelConnectorOutputTable" author="LizogubNS">
+        <createTable tableName="model_connector_output">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="summary_data_version_id" type="bigint">
+                <constraints
+                        nullable="false"
+                        foreignKeyName="fk_model_connector_output_summary_data_version"
+                        references="summary_data_version(id)"
+                />
+            </column>
+            <column name="check_main_attributes" type="boolean"/>
+            <column name="data_format" type="varchar(64)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="createModelStructTable" author="LizogubNS">
+        <createTable tableName="model_struct">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="summary_data_version_id" type="bigint">
+                <constraints
+                        nullable="false"
+                        foreignKeyName="fk_model_struct_summary_data_version"
+                        references="summary_data_version(id)"
+                />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="createModelRuleTable" author="LizogubNS">
+        <createTable tableName="model_rule">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="summary_data_version_id" type="bigint">
+                <constraints
+                        nullable="false"
+                        foreignKeyName="fk_model_rule_summary_data_version"
+                        references="summary_data_version(id)"
+                />
+            </column>
+            <column name="save_result" type="boolean"/>
+            <column name="json_data" type="json"/>
+            <column name="days_remaining" type="INT"/>
+            <column name="result_incremental" type="BOOLEAN"/>
+            <column name="rule_type" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

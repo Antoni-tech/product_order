@@ -1,0 +1,23 @@
+.picked {
+	background-color: #f0f0f0;
+
+
+	td {
+		padding: 8px 0 !important;
+		border: none !important;
+	}
+}
+
+.default {
+	background-color: #fff;
+
+	td {
+		padding: 8px 0 !important;
+		border: none !important;
+	}
+
+	&:active {
+		background-color: #f0f0f0
+	}
+
+}

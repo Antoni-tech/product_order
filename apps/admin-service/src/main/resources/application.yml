@@ -1,0 +1,41 @@
+server:
+  port: 8110
+  servlet:
+    context-path: /${spring.application.name}
+spring:
+  application:
+    name: admin-service
+  datasource:
+    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5438/postgres}
+    password: ${DATASOURCE_PASSWORD:postgres}
+    username: ${DATASOURCE_USERNAME:postgres}
+    driver-class-name: org.postgresql.Driver
+
+
+  liquibase:
+    change-log: db/changelog/liquibase-changelog.xml
+    database-change-log-table: changelog_${spring.application.name}
+    database-change-log-lock-table: changelog_lock_${spring.application.name}
+  cloud:
+    discovery:
+      client:
+        simple:
+          order: 0
+          instances:
+            admin-service:
+              - uri: ${ADMIN_SERVICE:http://localhost:8110}
+  jpa:
+    show-sql: false
+springdoc:
+  swagger-ui:
+    enabled: true
+    config-url: /${spring.application.name}/v3/api-docs/swagger-config
+    url: /${spring.application.name}/v3/api-docs
+
+logging:
+  level:
+    org.springframework: WARN
+
+app.version: '@project.version@'
+connection:
+  allowed-origin: ${ALLOWED_URL:http://localhost:3000}

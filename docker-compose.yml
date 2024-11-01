@@ -1,0 +1,165 @@
+version: '2'
+
+services:
+  db:
+    image: 'postgres:13.1-alpine'
+    restart: always
+    container_name: db
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=${DATASOURCE_USERNAME}
+      - POSTGRES_PASSWORD=${DATASOURCE_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+  auth:
+    restart: always
+    image: 'auth-service:latest'
+    container_name: auth
+    environment:
+      - SPRING_PROFILES_ACTIVE=${PROFILE}
+      - SPRING_DATASOURCE_URL=${DATASOURCE_URL}
+      - SPRING_DATASOURCE_USERNAME=${DATASOURCE_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${DATASOURCE_PASSWORD}
+      - ADMIN_SERVICE=${ADMIN_SERVICE}
+      - ALLOWED_URL=${GATEWAY_URL}
+      - LOGSTASH_URL=${LOGSTASH_URL}
+    expose:
+      - "8100"
+    depends_on:
+      - db
+  core:
+    restart: always
+    image: 'core-service:latest'
+    container_name: core
+    environment:
+      - SPRING_PROFILES_ACTIVE=${PROFILE}
+      - SPRING_DATASOURCE_URL=${DATASOURCE_URL}
+      - SPRING_DATASOURCE_USERNAME=${DATASOURCE_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${DATASOURCE_PASSWORD}
+      - ALLOWED_URL=${GATEWAY_URL}
+      - ADMIN_SERVICE=${ADMIN_SERVICE}
+      - ELASTICSEARCH_HOST_CORE=${ELASTICSEARCH_HOST_CORE}
+      - ELASTICSEARCH_PORT=${ELASTICSEARCH_PORT}
+      - ELASTICSEARCH_USERNAME=${ELASTICSEARCH_USERNAME}
+      - ELASTICSEARCH_PASSWORD=${ELASTICSEARCH_PASSWORD}
+      - LOGSTASH_URL=${LOGSTASH_URL}
+      - REDIS_HOST_CORE=${REDIS_HOST_CORE}
+      - REDIS_PORT=${REDIS_PORT}
+    ports:
+      - "8095:8095"
+    depends_on:
+      - db
+  connector-handler:
+    restart: always
+    image: 'connector-handler-service:latest'
+    container_name: handler
+    environment:
+      - SPRING_PROFILES_ACTIVE=${PROFILE}
+      - SPRING_DATASOURCE_URL=${DATASOURCE_URL}
+      - SPRING_DATASOURCE_USERNAME=${DATASOURCE_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${DATASOURCE_PASSWORD}
+      - CORE_SERVICE=${CORE_SERVICE}
+      - TEST_SERVICE=${TEST_SERVICE}
+      - ALLOWED_URL=${GATEWAY_URL}
+      - ADMIN_SERVICE=${ADMIN_SERVICE}
+      - LOGSTASH_URL=${LOGSTASH_URL}
+      - REDIS_HOST_CORE=${REDIS_HOST_CORE}
+      - REDIS_PORT=${REDIS_PORT}
+    ports:
+      - "8097:8097"
+    depends_on:
+      - db
+      - core
+  test:
+    restart: always
+    image: 'test-service:latest'
+    container_name: test
+    environment:
+      - SPRING_PROFILES_ACTIVE=${PROFILE}
+      - SPRING_DATASOURCE_URL=${DATASOURCE_URL}
+      - SPRING_DATASOURCE_USERNAME=${DATASOURCE_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${DATASOURCE_PASSWORD}
+      - CORE_SERVICE=${CORE_SERVICE}
+      - ALLOWED_URL=${GATEWAY_URL}
+      - ADMIN_SERVICE=${ADMIN_SERVICE}
+      - LOGSTASH_URL=${LOGSTASH_URL}
+      - REDIS_HOST_CORE=${REDIS_HOST_CORE}
+      - REDIS_PORT=${REDIS_PORT}
+    ports:
+      - "8096:8096"
+    depends_on:
+      - db
+      - core
+      - connector-handler
+  admin:
+    restart: always
+    image: 'admin-service:latest'
+    container_name: admin
+    environment:
+      - SPRING_PROFILES_ACTIVE=${PROFILE}
+      - SPRING_DATASOURCE_URL=${DATASOURCE_URL}
+      - SPRING_DATASOURCE_USERNAME=${DATASOURCE_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${DATASOURCE_PASSWORD}
+      - ALLOWED_URL=${GATEWAY_URL}
+      - LOGSTASH_URL=${LOGSTASH_URL}
+    expose:
+      - "8110"
+    depends_on:
+      - db
+  mail:
+    restart: always
+    image: 'mail-service:latest'
+    container_name: mail
+    environment:
+      - SPRING_PROFILES_ACTIVE=${PROFILE}
+      - ALLOWED_URL=${GATEWAY_URL}
+      - ADMIN_SERVICE=${ADMIN_SERVICE}
+      - LOGSTASH_URL=${LOGSTASH_URL}
+    expose:
+      - "8090"
+    depends_on:
+      - db
+
+  gateway:
+    restart: always
+    image: 'gateway:latest'
+    container_name: gateway
+    environment:
+      - SPRING_PROFILES_ACTIVE=${PROFILE}
+      - ADMIN_SERVICE=${ADMIN_SERVICE}
+      - AUTH_SERVICE=${AUTH_SERVICE}
+      - CORE_SERVICE=${CORE_SERVICE}
+      - MAIL_SERVICE=${MAIL_SERVICE}
+      - TEST_SERVICE=${TEST_SERVICE}
+      - CONNECTOR_HANDLER_SERVICE=${CONNECTOR_HANDLER_SERVICE}
+      - GATEWAY_URL=${GATEWAY_URL}
+      - SSL_ENABLED=${SSL_ENABLED}
+      - DOMAIN=${DOMAIN}
+      - LOGSTASH_URL=${LOGSTASH_URL}
+    ports:
+      - "8080:8080"
+    depends_on:
+      - auth
+      - core
+      - admin
+      - mail
+  front:
+    restart: always
+    image: 'front:latest'
+    container_name: front
+    environment:
+      - NODE_ENV
+      - GATEWAY
+      - DOMAIN
+      - EMAIL_ADDRESS
+    ports:
+      - "443:443"
+    depends_on:
+      - gateway
+
+  redis-master:
+    container_name: redis-master
+    restart: always
+    image: redis:latest
+    ports:
+      - "6379:6379"

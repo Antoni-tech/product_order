@@ -1,0 +1,24 @@
+server:
+  port: 8096
+  servlet:
+    context-path: /${spring.application.name}
+
+spring:
+  application:
+    name: test-service
+  datasource:
+    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5432/anti_fraud}
+    password: ${DATASOURCE_PASSWORD:NbEMagx0LvJ0VMWuqqc8HXa89o0AcaTXjUCqtp7Qziat4LsN0Rki8dyXi}
+    username: ${DATASOURCE_USERNAME:anti_fraud}
+    driver-class-name: org.postgresql.Driver
+  liquibase:
+    change-log: db/changelog/liquibase-changelog.xml
+    database-change-log-table: changelog_${spring.application.name}
+    database-change-log-lock-table: changelog_lock_${spring.application.name}
+
+logging:
+  level:
+    org.springframework: WARN
+
+redis-prefixes:
+  counter-requests-test: counter:requests:test

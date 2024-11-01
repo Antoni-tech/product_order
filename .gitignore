@@ -1,0 +1,14 @@
+**/application-db/target/
+**/.idea
+#npm
+**/node_modules/
+**/core-service/target/
+**/models/target/
+**/file-service/target/
+**/repeater-service/target/
+**/mail-service/target/
+**/gateway/target/
+**/auth-service/target/
+**/admin-service/target/
+**/feign-clients/target/
+/.idea/

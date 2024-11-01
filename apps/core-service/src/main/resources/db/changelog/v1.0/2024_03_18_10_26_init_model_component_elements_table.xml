@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+
+    <changeSet id="drop_model_struct_components_columns" author="RichMan">
+        <dropColumn tableName="model_struct_components" columnName="launch_second_stage"/>
+        <dropColumn tableName="model_struct_components" columnName="queue_number"/>
+        <dropColumn tableName="model_struct_components" columnName="test"/>
+    </changeSet>
+
+    <changeSet id="drop_quality_operation_columns" author="RichMan">
+        <dropForeignKeyConstraint
+                baseTableName="quality_operation"
+                constraintName="fk_summary_data_version_connector_output_id_quality_operation"
+        />
+
+        <dropColumn tableName="quality_operation" columnName="summary_data_version_connector_output_id"/>
+        <dropColumn tableName="quality_operation" columnName="to_incidents"/>
+    </changeSet>
+
+    <changeSet id="create_model_component_elements_table" author="RichMan">
+        <createTable tableName="model_component_elements">
+            <column name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="model_struct_component_id" type="bigint"/>
+            <column name="enum_field" type="varchar(64)"/>
+            <column name="type" type="varchar(64)"/>
+            <column name="value" type="text"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="addForeignKeyToComponentElement" author="RichMan">
+        <addForeignKeyConstraint
+                baseTableName="model_component_elements" baseColumnNames="model_struct_component_id"
+                constraintName="fk_model_component_elements_model_struct_component_id"
+                referencedTableName="model_struct_components"
+                referencedColumnNames="id"
+                onDelete="CASCADE"
+        />
+    </changeSet>
+
+</databaseChangeLog>

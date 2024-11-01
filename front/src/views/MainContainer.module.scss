@@ -1,0 +1,19 @@
+.header {
+	background-color: #fff;
+	height: 70px;
+	padding: 5px 10px;
+	border-bottom: 1px solid #B3B2B2;
+	position: sticky;
+	top: 0;
+	z-index: 11
+}
+
+.sider {
+	height: 100vh;
+	overflow: auto;
+	position: fixed;
+	top: 70;
+	left: 0;
+	bottom: 0;
+	// border-right: 1px solid #B3B2B2;
+}

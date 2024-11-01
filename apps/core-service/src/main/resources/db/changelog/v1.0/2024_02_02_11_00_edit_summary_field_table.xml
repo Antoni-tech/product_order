@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="addFieldTypeToSummaryFieldsTable" author="RichMan">
+        <addColumn tableName="summary_fields">
+            <column name="field_type" type="varchar"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="deleteFieldTypeFromSummaryFieldSubDataTable" author="RichMan">
+        <dropColumn tableName="summary_field_sub_data">
+            <column name="field_type"/>
+        </dropColumn>
+    </changeSet>
+
+    <changeSet id="addMaxArrayToSummaryFieldsTable" author="RichMan">
+        <addColumn tableName="summary_fields">
+            <column name="max_array" type="varchar"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="deleteMaxArrayFromSummaryFieldSubDataTable" author="RichMan">
+        <dropColumn tableName="summary_field_sub_data">
+            <column name="max_array"/>
+        </dropColumn>
+    </changeSet>
+
+</databaseChangeLog>

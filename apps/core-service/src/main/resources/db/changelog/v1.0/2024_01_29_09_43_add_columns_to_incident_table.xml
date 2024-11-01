@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="add_columns_incident" author="Daniyar">
+
+        <addColumn tableName="incidents">
+            <column name="json_data" type="json"/>
+            <column name="summary_data_version_model_id" type="bigint"/>
+            <column name="summary_data_version_connector_id" type="bigint"/>
+        </addColumn>
+
+        <dropForeignKeyConstraint
+                baseTableName="incidents"
+                constraintName="fk_connector_input_incident"
+        />
+        <dropColumn
+                tableName="incidents"
+                columnName="connector_input_id"
+        />
+
+        <addForeignKeyConstraint
+                baseTableName="incidents"
+                baseColumnNames="summary_data_version_model_id"
+                constraintName="fk_incident_summary_data_version_model_id"
+                referencedTableName="summary_data_version"
+                referencedColumnNames="id"
+                onDelete="NO ACTION"
+                onUpdate="NO ACTION"
+        />
+
+        <addForeignKeyConstraint
+                baseTableName="incidents"
+                baseColumnNames="summary_data_version_connector_id"
+                constraintName="fk_incident_summary_data_version_connector_id"
+                referencedTableName="summary_data_version"
+                referencedColumnNames="id"
+                onDelete="NO ACTION"
+                onUpdate="NO ACTION"
+        />
+
+    </changeSet>
+
+</databaseChangeLog>

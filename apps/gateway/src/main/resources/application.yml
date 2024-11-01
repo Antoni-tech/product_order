@@ -1,0 +1,223 @@
+server:
+  port: 8080
+  ssl:
+    enabled: ${SSL_ENABLED:false}
+    key-store: classpath:p12/${DOMAIN:antifraud-test.symtech-cloud.kz}.p12
+    key-store-password: qwerty$4
+    keyStoreType: PKCS12
+spring:
+  jackson:
+    generator:
+      write_big_decimal_as_plain: true
+  logging:
+    pattern:
+      dateformat: yyyy-MM-dd HH:mm:ss.SSS,Asia/Almaty
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      global-filter:
+        DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins:
+              - ${GATEWAY_URL:http://localhost:3000}
+            allowedHeaders:
+              - Authorization
+              - Content-Type
+              - X-Requested-With
+              - Access-Control-Allow-Origin
+              - Access-Control-Allow-Credentials
+            allowedMethods:
+              - PUT
+              - GET
+              - POST
+              - DELETE
+            allowCredentials: true
+      routes:
+        # ===============================
+        # Client service request handling
+        # ===============================
+        - id: client
+          uri: ${CORE_SERVICE:http://localhost:8095}/core-service
+          predicates:
+            - Path=/core-service/api/client/**
+#          filters:
+#            - AuthFilter
+
+        - id: connector
+          uri: ${CORE_SERVICE:http://localhost:8095}/core-service
+          predicates:
+            - Path=/core-service/api/connector/**
+
+        - id: model-rule
+          uri: ${CORE_SERVICE:http://localhost:8095}/core-service
+          predicates:
+            - Path=/core-service/api/rule/**
+
+        - id: model
+          uri: ${CORE_SERVICE:http://localhost:8095}/core-service
+          predicates:
+            - Path=/core-service/api/model/**
+
+        - id: general
+          uri: ${CORE_SERVICE:http://localhost:8095}/core-service
+          predicates:
+            - Path=/core-service/api/general/**
+
+        - id: data-structure
+          uri: ${CORE_SERVICE:http://localhost:8095}/core-service
+          predicates:
+            - Path=/core-service/api/data-structure/**
+
+        - id: field-relations
+          uri: ${CORE_SERVICE:http://localhost:8095}/core-service
+          predicates:
+            - Path=/core-service/api/v1/field-relations/**
+        - id: field-relations
+          uri: ${CORE_SERVICE:http://localhost:8095}/core-service
+          predicates:
+            - Path=/core-service/api/v1/transaction-counter/**
+
+        - id: data-structure
+          uri: ${CORE_SERVICE:http://localhost:8095}/core-service
+          predicates:
+            - Path=/core-service/api/data-structure/**
+
+        - id: client-swagger
+          uri: ${CORE_SERVICE:http://localhost:8095}/core-service
+          predicates:
+            - Path=/core-service/swagger-ui/**
+
+        - id: client-api-docs
+          uri: ${CORE_SERVICE:http://localhost:8095}/core-service
+          predicates:
+            - Path=/core-service/v3/api-docs/**
+
+        # ===============================
+        # Auth service request handling
+        # ===============================
+        - id: auth
+          uri: ${AUTH_SERVICE:http://localhost:8100}/auth-service
+          predicates:
+            - Path=/auth-service/api/auth/**
+        - id: validate
+          uri: ${AUTH_SERVICE:http://localhost:8100}/auth-service}
+          predicates:
+            - Path=/auth-service/api/auth/validate
+
+        - id: refresh
+          uri: ${AUTH_SERVICE:http://localhost:8100}/auth-service}
+          predicates:
+            - Path=/auth-service/api/auth/refresh
+
+        - id: auth-swagger
+          uri: ${AUTH_SERVICE:http://localhost:8100}/auth-service
+          predicates:
+            - Path=/auth-service/swagger-ui/**
+
+        - id: auth-api-docs
+          uri: ${AUTH_SERVICE:http://localhost:8100}/auth-service
+          predicates:
+            - Path=/auth-service/v3/api-docs/**
+
+        # ===============================
+        # Admin service request handling
+        # ===============================
+        - id: admin-users
+          uri: ${ADMIN_SERVICE:http://localhost:8110}/admin-service
+          predicates:
+            - Path=/admin-service/api/users/**
+          filters:
+            - AuthFilter
+        - id: admin-roles
+          uri: ${ADMIN_SERVICE:http://localhost:8110}/admin-service
+          predicates:
+            - Path=/admin-service/api/roles/**
+          filters:
+            - AuthFilter
+        - id: admin-privileges
+          uri: ${ADMIN_SERVICE:http://localhost:8110}/admin-service
+          predicates:
+            - Path=/admin-service/api/privileges/**
+          filters:
+            - AuthFilter
+
+        - id: admin-swagger-admin
+          uri: ${ADMIN_SERVICE:http://localhost:8110}/admin-service
+          predicates:
+            - Path=/admin-service/swagger-ui/**
+
+        - id: admin-api-docs
+          uri: ${ADMIN_SERVICE:http://localhost:8110}/admin-service
+          predicates:
+            - Path=/admin-service/v3/api-docs/**
+
+        # ===============================
+        # Mail service request handling
+        # ===============================
+
+        - id: mail-swagger-admin
+          uri: ${MAIL_SERVICE:http://localhost:8090}/mail-service
+          predicates:
+            - Path=/mail-service/swagger-ui/**
+
+        - id: mail-api-docs
+          uri: ${MAIL_SERVICE:http://localhost:8090}/mail-service
+          predicates:
+            - Path=/mail-service/v3/api-docs/**
+
+        # ===============================
+        # Test service request handling
+        # ===============================
+        - id: test-incident
+          uri: ${TEST_SERVICE:http://localhost:8096}/test-service
+          predicates:
+            - Path=/test-service/api/v1/incidents/**
+
+        - id: test-swagger-admin
+          uri: ${TEST_SERVICE:http://localhost:8096}/test-service
+          predicates:
+            - Path=/test-service/swagger-ui/**
+
+        - id: test-api-docs
+          uri: ${TEST_SERVICE:http://localhost:8096}/test-service
+          predicates:
+            - Path=/test-service/v3/api-docs/**
+
+        # ===============================
+        # ConnectorHandler service request handling
+        # ===============================
+
+        - id: incidents
+          uri: ${CONNECTOR_HANDLER_SERVICE:http://localhost:8097}/connector-handler-service
+          predicates:
+            - Path=/connector-handler-service/api/v1/incidents/**
+
+        - id: send-transaction
+          uri: ${CONNECTOR_HANDLER_SERVICE:http://localhost:8097}/connector-handler-service
+          predicates:
+            - Path=/connector-handler-service/api/v1/connector-handler/**
+
+        - id: send-test-data
+          uri: ${CONNECTOR_HANDLER_SERVICE:http://localhost:8097}/connector-handler-service
+          predicates:
+            - Path=/connector-handler-service/api/v1/rule-evaluate/**
+
+        - id: connector-handler-swagger-admin
+          uri: ${CONNECTOR_HANDLER_SERVICE:http://localhost:8097}/connector-handler-service
+          predicates:
+            - Path=/connector-handler-service/swagger-ui/**
+
+        - id: connector-handler-api-docs
+          uri:  ${CONNECTOR_HANDLER_SERVICE:http://localhost:8097}/connector-handler-service
+          predicates:
+            - Path=/connector-handler-service/v3/api-docs/**
+
+
+management.endpoints.web.exposure.include: '*'
+api:
+  auth-service-url: ${AUTH_SERVICE:http://localhost:8100}/auth-service/api/auth
+  allowed-origins:
+    - ${GATEWAY_URL:http://localhost:3000}

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="delete_field_relations_columns" author="Daniyar">
+
+        <dropForeignKeyConstraint
+                baseTableName="field_relation"
+                constraintName="fk_field_relation_summary_rule_field_id"
+        />
+        <dropColumn
+                tableName="field_relation"
+                columnName="summary_rule_field_id"
+        />
+
+        <dropForeignKeyConstraint
+                baseTableName="field_relation"
+                constraintName="fk_field_relation_model_connector_input_id"
+        />
+        <dropColumn
+                tableName="field_relation"
+                columnName="model_connector_input_id"
+        />
+
+        <dropForeignKeyConstraint
+                baseTableName="field_relation"
+                constraintName="fk_field_relation_summary_connector_field_id"
+        />
+        <dropColumn
+                tableName="field_relation"
+                columnName="summary_connector_field_id"
+        />
+
+        <dropForeignKeyConstraint
+                baseTableName="field_relation"
+                constraintName="fk_field_relation_model_rule_id"
+        />
+        <dropColumn
+                tableName="field_relation"
+                columnName="model_rule_id"
+        />
+
+    </changeSet>
+
+    <changeSet id="create_summary_field_table" author="Daniyar">
+        <createTable tableName="summary_fields">
+            <column name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="summary_data_version_id" type="bigint"/>
+            <column name="name" type="varchar"/>
+            <column name="parent_id" type="bigint"/>
+            <column name="default_field" type="boolean"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="add_fk_summary_fields" author="Daniyar">
+
+        <addForeignKeyConstraint
+                baseTableName="summary_fields"
+                baseColumnNames="summary_data_version_id"
+                constraintName="fk_summary_field_version_id"
+                referencedTableName="summary_data_version"
+                referencedColumnNames="id"
+                onDelete="NO ACTION"
+                onUpdate="NO ACTION"
+        />
+
+        <addForeignKeyConstraint
+                baseTableName="summary_fields"
+                baseColumnNames="parent_id"
+                constraintName="fk_summary_field_parent_id"
+                referencedTableName="summary_fields"
+                referencedColumnNames="id"
+                onDelete="NO ACTION"
+                onUpdate="NO ACTION"
+        />
+
+    </changeSet>
+
+    <changeSet id="add_field_relations_columns" author="Daniyar">
+
+        <addColumn tableName="field_relation">
+            <column name="var_summary_field_id" type="bigint"/>
+            <column name="src_summary_field_id" type="bigint"/>
+        </addColumn>
+
+        <addForeignKeyConstraint
+                baseTableName="field_relation"
+                baseColumnNames="var_summary_field_id"
+                constraintName="fk_field_relation_var_summary_field_id"
+                referencedTableName="summary_fields"
+                referencedColumnNames="id"
+                onDelete="NO ACTION"
+                onUpdate="NO ACTION"
+        />
+
+        <addForeignKeyConstraint
+                baseTableName="field_relation"
+                baseColumnNames="src_summary_field_id"
+                constraintName="fk_field_relation_src_summary_field_id"
+                referencedTableName="summary_fields"
+                referencedColumnNames="id"
+                onDelete="NO ACTION"
+                onUpdate="NO ACTION"
+        />
+
+    </changeSet>
+
+    <changeSet id="create_summary_field_sub_data_table" author="Daniyar">
+
+        <createTable tableName="summary_field_sub_data">
+            <column name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="field_type" type="varchar"/>
+            <column name="max_size" type="int"/>
+            <column name="allow_empty" type="boolean"/>
+            <column name="prohibit_spec_characters" type="boolean"/>
+            <column name="allow_array" type="boolean"/>
+            <column name="max_array" type="bigint"/>
+            <column name="summary_field_id" type="bigint"/>
+        </createTable>
+
+    </changeSet>
+
+    <changeSet id="add_fk_summary_field_sub_data" author="Daniyar">
+
+        <addForeignKeyConstraint
+                baseTableName="summary_field_sub_data"
+                baseColumnNames="summary_field_id"
+                constraintName="fk_summary_field_sub_data_summary_field_id"
+                referencedTableName="summary_fields"
+                referencedColumnNames="id"
+                onDelete="NO ACTION"
+                onUpdate="NO ACTION"
+        />
+
+    </changeSet>
+
+</databaseChangeLog>

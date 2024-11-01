@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <include file="2023_10_16_14_42_init_transactions.xml" relativeToChangelogFile="true"/>
+    <include file="2023_11_28_14_52_create_model.xml" relativeToChangelogFile="true"/>
+    <include file="2023_11_27_11_45_init_conflict_table.xml" relativeToChangelogFile="true"/>
+    <include file="2023_12_12_10_25_create_incidents_and_validate_transactions_tables.xml" relativeToChangelogFile="true"/>
+    <include file="2023_11_13_15_40_added_model_connection.xml" relativeToChangelogFile="true"/>
+    <include file="2023_12_26_9_55_init_field_relation_table.xml" relativeToChangelogFile="true"/>
+    <include file="2024_1_3_9_28_init_transaction_counter_table.xml" relativeToChangelogFile="true"/>
+    <include file="2024_01_10_9_45_init_summary_rule_field_table.xml" relativeToChangelogFile="true"/>
+    <include file="2024_01_19_16_07_change_validated_input_connectors.xml" relativeToChangelogFile="true"/>
+    <include file="2024_01_23_17_34_delete_columns_from_rule.xml" relativeToChangelogFile="true"/>
+    <include file="2024_01_24_15_08_change_field_relation.xml" relativeToChangelogFile="true"/>
+    <include file="2024_01_26_14_27_change_tables.xml" relativeToChangelogFile="true"/>
+    <include file="2024_01_26_16_10_add_cascade_delete_to_tables.xml" relativeToChangelogFile="true"/>
+    <include file="2024_02_01_16_30_delete_field_tables.xml" relativeToChangelogFile="true"/>
+    <include file="2024_01_29_09_43_add_columns_to_incident_table.xml" relativeToChangelogFile="true"/>
+    <include file="2024_02_02_11_00_edit_summary_field_table.xml" relativeToChangelogFile="true"/>
+    <include file="2024_02_15_11_00_add_connector_subtype_and_common.xml" relativeToChangelogFile="true"/>
+    <include file="2024_02_15_14_17_add_column_c_output.xml" relativeToChangelogFile="true"/>
+    <include file="2024_02_19_10_16_add_columns_model_components.xml" relativeToChangelogFile="true"/>
+    <include file="2024_02_19_16_24_refactor_rule_table.xml" relativeToChangelogFile="true"/>
+    <include file="2024_03_01_17_00_unite_connector_and_rule_subtype.xml" relativeToChangelogFile="true"/>
+    <include file="2024_03_01_17_05_drop_tables.xml" relativeToChangelogFile="true"/>
+    <include file="2024_03_05_10_30_update_fields_queue_value.xml" relativeToChangelogFile="true"/>
+    <include file="2024_03_11_12_22_add_column_summary_fields.xml" relativeToChangelogFile="true"/>
+    <include file="2024_03_18_10_26_init_model_component_elements_table.xml" relativeToChangelogFile="true"/>
+    <include file="2024_03_18_09_29_add_column_transaction_counter.xml" relativeToChangelogFile="true"/>
+    <include file="2024_03_19_12_37_add_columns_connector.xml" relativeToChangelogFile="true"/>
+    <include file="2024_05_04_15_35_create_table.xml" relativeToChangelogFile="true"/>
+</databaseChangeLog>

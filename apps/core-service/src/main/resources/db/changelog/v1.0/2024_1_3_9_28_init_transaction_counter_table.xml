@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="create_transaction_counter_table" author="Daniyar">
+        <createTable tableName="transaction_counter">
+            <column name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="amount_of_transactions" type="int"/>
+            <column name="amount_of_errors" type="int"/>
+            <column name="state" type="varchar"/>
+            <column name="model_id" type="bigint"/>
+            <column name="summary_data_version_id" type="bigint"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="add_foreign_key_transaction_counter" author="Daniyar">
+
+        <addForeignKeyConstraint
+                baseTableName="transaction_counter"
+                baseColumnNames="summary_data_version_id"
+                constraintName="fk_field_transaction_counter_summary_data_version_id"
+                referencedTableName="summary_data_version"
+                referencedColumnNames="id"
+                onDelete="NO ACTION"
+                onUpdate="NO ACTION"
+        />
+
+        <addForeignKeyConstraint
+                baseTableName="transaction_counter"
+                baseColumnNames="model_id"
+                constraintName="fk_field_transaction_counter_model_id"
+                referencedTableName="model_struct"
+                referencedColumnNames="id"
+                onDelete="NO ACTION"
+                onUpdate="NO ACTION"
+        />
+
+    </changeSet>
+
+</databaseChangeLog>

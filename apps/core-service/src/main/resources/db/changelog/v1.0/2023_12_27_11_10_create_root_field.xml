@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="insert_root_summary_data" author="richman0ff">
+        <sql>
+            INSERT INTO summary_data
+                (id, version, user_create_id, email, create_date, update_date, type)
+            VALUES (
+                       '8affbb04-7f91-11ee-b962-0242ac120002',
+                       1,
+                       0,
+                       'email@example.com',
+                       '2023-12-27 08:00:00',
+                       '2023-12-27 08:00:00',
+                       null
+                   );
+        </sql>
+    </changeSet>
+    <changeSet id="insert_root_summary_data_version" author="richman0ff">
+        <sql>
+            INSERT INTO summary_data_version
+            (id, summary_data_id, version, is_template, user_update_id, validate_fields, is_active, create_date, update_date, state, name, description)
+            VALUES (
+                       0,
+                       '8affbb04-7f91-11ee-b962-0242ac120002',
+                       1,
+                       false,
+                       0,
+                       true,
+                       false,
+                       '2023-12-27 08:00:00',
+                       '2023-12-27 08:00:00',
+                       'DRAFT',
+                       'root summary_data_version',
+                       'root description'
+                   );
+        </sql>
+    </changeSet>
+    <changeSet id="insert_root_field" author="richman0ff">
+        <sql>
+            INSERT INTO summary_connector_field (id, summary_data_version_id, name, field_type, parent_id, max_size, allow_empty, prohibit_spec_characters, allow_array, max_array)
+            VALUES (
+                       0,
+                       0,
+                       'root',
+                       'STRING',
+                       null,
+                       0,
+                       true,
+                       false,
+                       false,
+                       0
+
+                   );
+        </sql>
+    </changeSet>
+</databaseChangeLog>

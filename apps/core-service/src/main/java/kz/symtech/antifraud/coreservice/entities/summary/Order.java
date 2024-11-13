@@ -25,6 +25,8 @@ public class Order extends BaseEntity {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductOrder> productOrders = new ArrayList<>();
 
+
+
     // Геттеры и сеттеры
     public Long getTotal() {
         return total;

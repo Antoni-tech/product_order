@@ -1,13 +1,18 @@
 package kz.symtech.antifraud.coreservice.dto;
 
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@Builder
+import java.util.ArrayList;
+import java.util.List;
+
+
+
 @Getter
+@NoArgsConstructor
+@Data
 public class ProductOrderRequestDTO {
-    private Long total;
-    private Long tax;
-    private Long quantity;
-    private Long productId;
+    private List<ProductOrderRequest> productOrders = new ArrayList<>(); // Инициализация пустым списком
 }
